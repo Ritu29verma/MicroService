@@ -35,7 +35,7 @@ export const Login = () => {
       if (response.token) {
         toast.success("Login successful!");
         dispatch(setCredentials({ token: response.token, user: response.user }));
-        navigate("/");
+        navigate("/register-organization");
       } else {
         toast.error(response.message);
       }
