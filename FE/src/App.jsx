@@ -6,7 +6,8 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import RegisterOrganization from "./Pages/RegisterOrganization";
 import CustomizeChat from "./Pages/CustomizeChat";
-
+import IntegrationScript from "./Pages/IntegrationScript";
+import VerifyDomain from "./Pages/VerifyDomain";
 function App() {
 
   return (
@@ -18,6 +19,9 @@ function App() {
         <Route path="/signup" element={<Signup/>} />
         <Route path="/register-organization" element={<RegisterOrganization/>}/>
         <Route path="/customize-chat" element={<CustomizeChat />} />
+        <Route path="/integration-script" element={<IntegrationScript />} />
+        <Route path="/verify-domain" element={<VerifyDomain />} />
+
       </Routes>
     </Router>
   )

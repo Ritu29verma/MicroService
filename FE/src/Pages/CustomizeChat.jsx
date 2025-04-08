@@ -5,7 +5,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const CustomizeChat = () => {
-  const { token } = useSelector((state) => state.auth);
+  const tokenFromRedux = useSelector((state) => state.auth.token);
+  const token = tokenFromRedux || sessionStorage.getItem('token');
   const navigate = useNavigate();
 
   const [chatColor, setChatColor] = useState("#4CAF50");

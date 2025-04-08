@@ -1,4 +1,7 @@
 const {Organization, User, CustomizationSettings } =require ("../models");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const registerOrganization = async (req, res) => {
     const { name, domain } = req.body;
@@ -44,4 +47,58 @@ const saveCustomization = async (req, res) => {
     }
   };
   
-  module.exports = { registerOrganization, saveCustomization };
+  const getIntegrationScriptData = async (req, res) => {
+    try {
+      const userId = req.user.id;
+  
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Organization,
+          include: CustomizationSettings,
+        },
+      });
+  
+      if (!user || !user.Organization) {
+        return res.status(404).json({ message: "Organization not found" });
+      }
+  
+      const org = user.Organization;
+      const script = `<script src="${process.env.CLIENT_serve_URL}/chat-widget.iife.js" data-org="${org.id}"></script>`;
+  
+      res.json({
+        script,
+        organizationId: org.id,
+        domain: org.domain,
+        customization: org.CustomizationSetting || {},
+      });
+    } catch (error) {
+      console.error("Script data fetch error:", error);
+      res.status(500).json({ message: "Failed to fetch script data" });
+    }
+  };
+  
+
+const orgDetail = async (req, res) => {
+    try {
+      const user = await User.findByPk(req.user.id, {
+        include: {
+          model: Organization,
+        },
+      });
+  
+      if (!user || !user.Organization) {
+        return res.status(404).json({ message: "Organization not found" });
+      }
+  
+      res.json({
+        id: user.Organization.id,
+        domain: user.Organization.domain,
+        Verified: user.Organization.Verified,
+      });
+    } catch (err) {
+      console.error("Error fetching org:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+
+  module.exports = { registerOrganization, saveCustomization, getIntegrationScriptData, orgDetail };

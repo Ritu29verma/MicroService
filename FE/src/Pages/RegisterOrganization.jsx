@@ -9,8 +9,9 @@ const RegisterOrganization = () => {
   const [name, setName] = useState("");
   const [domain, setDomain] = useState("");
 
-  const { token } = useSelector((state) => state.auth);
-  console.log(token)
+  const tokenFromRedux = useSelector((state) => state.auth.token);
+  const token = tokenFromRedux || sessionStorage.getItem('token');
+  
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
