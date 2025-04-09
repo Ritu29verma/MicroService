@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const orgRoutes = require("./routes/organization");
 const { connectDB } = require("./config/db");
 const setupSocketIO = require("./socketServer")
+const uploadRoute = require("./routes/uploadRoutes");
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/org", orgRoutes);
+app.use("/api/upload", uploadRoute);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("API is running ✅");

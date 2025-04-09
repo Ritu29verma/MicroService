@@ -1,9 +1,10 @@
-// pages/RegisterOrganization.jsx
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import axios from "axios";
+import TextInput from "../components/TextInput";
+import toast from "react-hot-toast";
+import bgImage from "../assets/bg1.jpg";
 
 const RegisterOrganization = () => {
   const [name, setName] = useState("");
@@ -32,26 +33,57 @@ const RegisterOrganization = () => {
   };
 
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-6">Register Your Organization</h2>
-      <input
-        className="border p-2 w-full mb-4"
-        placeholder="Organization Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        className="border p-2 w-full mb-4"
-        placeholder="Organization Domain (e.g., yoursite.com)"
-        value={domain}
-        onChange={(e) => setDomain(e.target.value)}
-      />
-      <button
-        className="bg-purple-700 text-white py-2 px-6 rounded"
-        onClick={handleSubmit}
-      >
-        Continue
-      </button>
+    <div className="relative w-full min-h-screen flex items-center justify-center bg-gray-100 overflow-auto">
+     
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          opacity: 0.2,
+        }}
+      ></div>
+
+      <div className="z-10 w-full max-w-2xl p-10 mx-4 sm:mx-6 md:mx-8 lg:mx-auto">
+        <h2 className="text-3xl font-bold text-purple-800 mb-6 text-center">
+          Register Your Organization
+        </h2>
+
+        <p className="text-gray-600 mb-8 text-center">
+          Enter your organization details to get started with your dashboard.
+        </p>
+
+        <div className="space-y-6">
+  <div>
+    <label className="block mb-2 font-medium text-gray-700">Organization Name</label>
+    <input
+      type="text"
+      placeholder="Enter Organization Name"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      className="w-full p-3 border border-gray-900 border-solid rounded placeholder-gray-500 bg-blue-100"
+    />
+  </div>
+
+  <div>
+    <label className="block mb-2 font-medium text-gray-700">Organization Domain</label>
+    <input
+      type="text"
+      placeholder="e.g., yourcompany.com"
+      value={domain}
+      onChange={(e) => setDomain(e.target.value)}
+      className="w-full p-3 border border-gray-900 border-solid rounded placeholder-gray-500 bg-blue-100"
+    />
+  </div>
+
+  <button
+    className="w-1/2 mx-auto flex items-center justify-center mt-16 bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-lg font-semibold text-lg transition duration-300"
+    onClick={handleSubmit}
+  >
+    Continue
+  </button>
+</div>
+
+      </div>
     </div>
   );
 };
